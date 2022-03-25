@@ -1,0 +1,19 @@
+﻿@model List<string>
+
+@{
+    ViewBag.Title = "Show";
+}
+
+<h2>Courses Taught</h2>
+<div>
+    @{
+        foreach (string ClassName in Model)
+        {
+            <div>
+                <span>@ClassName</span>
+            </div>
+        }
+    }
+</div>
+
+
