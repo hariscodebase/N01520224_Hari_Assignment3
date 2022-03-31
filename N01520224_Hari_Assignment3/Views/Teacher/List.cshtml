@@ -8,6 +8,14 @@
 <div>There are @Model.Count() teachers in the system.</div>
 
 <div>
+    <form action="/Teacher/List" method="GET" name="SearchForm">
+        <input type="text" name="NameKey" placeholder="Type a teacher's name" />
+        <input type="submit" value="Search" />
+    </form>
+    
+</div>
+
+<div>
 
     @{
         foreach (N01520224_Hari_Assignment3.Models.Teacher Teacher in Model)

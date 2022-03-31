@@ -13,9 +13,14 @@ namespace N01520224_Hari_Assignment3.Controllers
     {
         private SchoolDbContext School = new SchoolDbContext();
 
-
+        /// <summary>
+        /// Fetches the list of Teachers based on search input or shows full list
+        /// </summary>
+        /// <param name="NameKey">String input parameter</param>
+        /// <returns>returns a list of teacher object based on the input</returns>
         [HttpGet]
-        public List<Teacher> ListTeachers()
+        [Route("api/teacherdata/listteachers/{NameKey?}")]
+        public List<Teacher> ListTeachers(string NameKey = null)
         {
             //Create an instance of a connection
             MySqlConnection Conn = School.AccessDatabase();
@@ -27,7 +32,22 @@ namespace N01520224_Hari_Assignment3.Controllers
             MySqlCommand cmd = Conn.CreateCommand();
 
             //SQL QUERY
-            cmd.CommandText = "select * from teachers";
+            string query = "select * from teachers";
+
+            //handling the null case
+            if (NameKey != null)
+            {
+                cmd.CommandText = query + " where lower(teacherfname) = lower(@key)";
+                cmd.Parameters.AddWithValue("key", NameKey);
+                cmd.Prepare();
+            }
+            else
+            {
+                cmd.CommandText = query;
+            }
+
+
+            //SQl 
 
             //Gather Result Set of Query into a variable
             MySqlDataReader ResultSet = cmd.ExecuteReader();

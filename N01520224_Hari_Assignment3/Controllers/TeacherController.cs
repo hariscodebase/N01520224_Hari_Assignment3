@@ -16,11 +16,13 @@ namespace N01520224_Hari_Assignment3.Controllers
         }
 
         // GET: Teacher/List
-        public ActionResult List()
+        // NameKey is the value which we will receive here after submiting the Search form
+        [Route("Teacher/List/{NameKey}")]
+        public ActionResult List(string NameKey)
         {
 
             TeacherDataController controller = new TeacherDataController();
-            IEnumerable<Teacher> Teachers = controller.ListTeachers();
+            IEnumerable<Teacher> Teachers = controller.ListTeachers(NameKey);
             return View(Teachers);
         }
 
